@@ -1,3 +1,5 @@
+import os.path
+
 from django.db import models
 from django.db.models import CASCADE
 
@@ -32,3 +34,9 @@ class File(models.Model):
         db_table = 'files'
         verbose_name = 'файл'
         verbose_name_plural = 'файлы'
+
+    def save(self, *args, **kwargs):
+        file_path = self.file.path
+        file_extension = os.path.splitext(file_path)[1]
+        self.name = f'{self.name}{file_extension}'
+        super().save(*args, **kwargs)

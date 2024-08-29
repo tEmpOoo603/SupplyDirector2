@@ -6,10 +6,10 @@ from main.models import File, Folder
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = "__all__"
+        fields = ['id', 'name', 'folder']
 
 
 class FolderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Folder
-        fields = '__all__'
+        fields = ['id', 'name', 'parent']
