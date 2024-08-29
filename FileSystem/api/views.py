@@ -29,8 +29,11 @@ class FileView(APIView):
 
     def post(self, request, *args, **kwargs):
         data = request.data
+        folder = kwargs.get('folder_name')
+        if folder:
+            folder = Folder.objects.get(name=folder).id
+            data['folder'] = folder
         data['name'] = kwargs.get('file_name')
-        data['folder'] = Folder.objects.get(name=kwargs.get('folder_name')).id
         serializer = FileSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
